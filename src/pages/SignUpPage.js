@@ -4,6 +4,8 @@ import { useHistory } from "react-router";
 import MainStyle from "../layouts/MainStyle";
 import { Box, Input, Button, StyledLink, Error } from "../layouts/common/Components";
 
+import { registration } from "../services/requests";
+
 export default function SignUpPage(){
     const history = useHistory();
     const [name, setName] = useState("");
@@ -12,6 +14,23 @@ export default function SignUpPage(){
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    function signup(e){
+        e.preventDefault();
+        setLoading(true);
+
+        const body = {name, email, password, confirmPassword};
+
+        const req = registration(body);
+        req.then(() => {
+            alert("Cadastro realizado com sucesso!");
+            history.push("/");
+        });
+        req.catch(() => {
+            setError("Dados inválidos. Tente novamente.");
+            setLoading(false);
+        });
+    }
 
     return (
         <MainStyle>

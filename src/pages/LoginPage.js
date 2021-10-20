@@ -21,11 +21,11 @@ export default function LoginPage(){
         const req = login(body);
         req.then(res => {
             history.push("/home");
-        })
+        });
         req.catch(() => {
             setError("Email e/ou senha inválidos");
             setLoading(false);
-        })
+        });
     }
 
     return (
