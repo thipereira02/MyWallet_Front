@@ -55,7 +55,18 @@ export const Container = styled.div`
 `;
 
 export const Box = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 90%;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+`;
+
+export const Error = styled.div`
+  margin: 10px 0;
+  color: #DC3545;
+  background-color: #FFF;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
 `;
