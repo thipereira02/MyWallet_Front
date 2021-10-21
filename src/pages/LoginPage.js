@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router";
 
 import MainStyle from "../layouts/MainStyle";
 import { Box, Input, Button, StyledLink, Error } from "../layouts/common/Components";
 import { login } from "../services/requests"
+import UserContext from "../contexts/UserContext";
 
 export default function LoginPage(){
     const history = useHistory()
@@ -11,6 +12,7 @@ export default function LoginPage(){
 	const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const { setUserData } = useContext(UserContext);
     
     function signIn(e){
         e.preventDefault();
@@ -20,6 +22,11 @@ export default function LoginPage(){
 
         const req = login(body);
         req.then(res => {
+            console.log(res.data)
+            setUserData({
+				token: res.data.token,
+                name: res.data.name
+			});
             history.push("/home");
         });
         req.catch(() => {
