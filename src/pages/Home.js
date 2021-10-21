@@ -1,12 +1,27 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import styled from "styled-components";
 import { IoExitOutline } from "react-icons/io5";
 import { BsDashCircle, BsPlusCircle } from "react-icons/bs";
 
 import UserContext from "../contexts/UserContext";
+import { getUserFinances } from "../services/requests";
 
 export default function Home() {
+    const history = useHistory();
     const { userData } = useContext(UserContext);
+    const [financesList, setFinancesList] = useState([]);
+
+    useEffect(() => {
+        const req = getUserFinances(userData.token);
+        req.then(res => {
+            setFinancesList(res.data)
+        });
+        req.catch(() => {
+            alert("Ocorreu um erro ao tentar carregar a lista. Tente novamente")
+            history.push("/")
+        })
+    });
 
     return (
         <>
