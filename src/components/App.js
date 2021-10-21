@@ -6,6 +6,7 @@ import { UserProvider } from "../contexts/UserContext";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import Home from "../pages/Home";
+import AddFinance from "../pages/AddFinance";
 
 export default function App(){
 	return (
@@ -22,6 +23,9 @@ export default function App(){
                         </Route>
                         <Route path="/home" exact>
                             <Home />
+                        </Route>
+                        <Route path="/finances" exact>
+                            <AddFinance />
                         </Route>
                     </Switch>
                 </BrowserRouter>

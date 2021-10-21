@@ -12,16 +12,23 @@ export default function Home() {
     const { userData } = useContext(UserContext);
     const [financesList, setFinancesList] = useState([]);
 
-    useEffect(() => {
-        const req = getUserFinances(userData.token);
-        req.then(res => {
-            setFinancesList(res.data)
-        });
-        req.catch(() => {
-            alert("Ocorreu um erro ao tentar carregar a lista. Tente novamente")
-            history.push("/")
+    // useEffect(() => {
+    //     const req = getUserFinances(userData.token);
+    //     req.then(res => {
+    //         setFinancesList(res.data)
+    //     });
+    //     req.catch(() => {
+    //         alert("Ocorreu um erro ao tentar carregar a lista. Tente novamente")
+    //         history.push("/")
+    //     })
+    // });
+
+	function goTo(path){
+		history.push({
+            pathname: "/finances",
+            state: {text: path}
         })
-    });
+    };
 
     return (
         <>
@@ -35,11 +42,11 @@ export default function Home() {
                 drfhdh
             </RegisterBox>
             <Buttons>
-                <Button>
+                <Button onClick={() => goTo("income")}>
                     <BsPlusCircle size="20" color="#FFF"/>
 					<p>Nova<br/>entrada</p>
                 </Button>
-                <Button>
+                <Button onClick={() => goTo("expense")}>
                     <BsDashCircle size="20" color="#FFF"/>
 					<p>Nova<br/>saída</p>
                 </Button>
