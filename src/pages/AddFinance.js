@@ -1,15 +1,35 @@
-import { useState } from "react";
-import { useLocation } from "react-router";
+import { useContext, useState } from "react";
+import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
 
-import { Box, Input, Button, StyledLink } from "../layouts/common/Components";
+import { Box, Input, Button, StyledLink, Error } from "../layouts/common/Components";
+import { addNewFinance } from "../services/requests";
 
 export default function AddFinance() {
+    const history = useHistory();
     const location = useLocation();
+    const { userData } = useContext(UserContext);
     const finance = location.state.text;
     const [value, setValue] = useState();
 	const [description, setDescription] = useState("");
 	const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    function newFinance(e) {
+        e.preventDefault();
+        setLoading(true);
+
+        const body = {value, description, eventType: finance};
+        const token = userData.token;
+
+        const req = addNewFinance(body, token);
+        req.then(() => history.push("/home"));
+        req.catch(() => {
+            setError("Não foi possível cadastrar. Tente novamente")
+            setLoading(false);
+        });
+    }
 
     return (
         <>
@@ -18,10 +38,16 @@ export default function AddFinance() {
 			</Title>
 			<Container>
 				<Box>
-					<form>
+					<form onSubmit={newFinance}>
 						<Input type="number" placeholder="Valor (em centavos)" value={value} onChange={e => setValue(e.target.value)} />
 						<Input type="text" placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)} />
-						<Button type="submit" disabled={loading} backgroundColor="#A328D6">
+						{
+							error && 
+                            <Error>
+                                { error }
+                            </Error>
+						}
+                        <Button type="submit" disabled={loading} backgroundColor="#A328D6">
                             {finance==="income" ? "Salvar entrada" : "Salvar saída"}
 						</Button>
 						<StyledLink to="/home">Voltar</StyledLink>

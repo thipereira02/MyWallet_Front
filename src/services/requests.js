@@ -18,4 +18,8 @@ function getUserFinances(token) {
     return axios.get(`${BASE_URL}/finances`, setConfig(token))
 }
 
-export {login, registration, getUserFinances};
+function addNewFinance(body, token) {
+    return axios.post(`${BASE_URL}/finances`, body, setConfig(token))
+}
+
+export {login, registration, getUserFinances, addNewFinance};
