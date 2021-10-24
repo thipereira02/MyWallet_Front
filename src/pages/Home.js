@@ -74,7 +74,7 @@ export default function Home() {
 							</Event>
 						))}
 					</Registers>
-					<Balance>
+					<Balance positive={total >= 0}>
 						<h1>SALDO</h1>
 						<p>{total.toString().replace(".",",")}</p>
 					</Balance>

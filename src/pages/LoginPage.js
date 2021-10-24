@@ -22,7 +22,6 @@ export default function LoginPage(){
 
         const req = login(body);
         req.then(res => {
-            console.log(res.data)
             setUserData({
 				token: res.data.token,
                 name: res.data.name
