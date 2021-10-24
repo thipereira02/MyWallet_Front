@@ -12,14 +12,14 @@ export default function Home() {
     const history = useHistory();
     const { userData } = useContext(UserContext);
     const [financesList, setFinancesList] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
         const req = getUserFinances(userData.token);
         req.then(res => {
             setFinancesList(res.data);
-            setLoading(true);
+            setLoading(false);
             calculateTotal(res.data);
         });
         req.catch(() => {
