@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import MainStyle from "../layouts/MainStyle";
@@ -13,6 +13,12 @@ export default function LoginPage(){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const { setUserData } = useContext(UserContext);
+    const user = localStorage.getItem("user");
+
+    useEffect(() => {
+        user ? history.push("/home") : setUserData(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     
     function signIn(e){
         e.preventDefault();
@@ -26,6 +32,7 @@ export default function LoginPage(){
 				token: res.data.token,
                 name: res.data.name
 			});
+            localStorage.setItem("user", JSON.stringify(res.data))
             history.push("/home");
         });
         req.catch(() => {

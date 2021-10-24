@@ -1,18 +1,20 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
 
 import GlobalStyle from "../components/GlobalStyle";
-import { UserProvider } from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import Home from "../pages/Home";
 import AddFinance from "../pages/AddFinance";
 
 export default function App(){
+    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")));
+
 	return (
 		<>
 			<GlobalStyle />
-            <UserProvider>
+            <UserContext.Provider value={{userData, setUserData}} >
                 <BrowserRouter>
                     <Switch>
                         <Route path="/" exact>
@@ -29,7 +31,7 @@ export default function App(){
                         </Route>
                     </Switch>
                 </BrowserRouter>
-            </UserProvider>
+            </UserContext.Provider>
 		</>
 	);
 }
