@@ -6,7 +6,7 @@ import { BsDashCircle, BsPlusCircle } from "react-icons/bs";
 
 import { Header, Title, RegisterBox, NoRegisters, Registers, Event, Date, Element, Description, Value, Balance, Buttons, Button } from "../layouts/HomeComponents";
 import UserContext from "../contexts/UserContext";
-import { getUserFinances } from "../services/requests";
+import { finishSession, getUserFinances } from "../services/requests";
 
 export default function Home() {
     const history = useHistory();
@@ -46,8 +46,19 @@ export default function Home() {
 				sum -= Number(f.value);
 			}
 		});
-		setTotal(sum);
+		setTotal(sum.toFixed(2));
 	}
+
+    function logout() {
+        if (window.confirm("Deseja sair da sua conta?")){
+            const req = finishSession(userData.token);
+            req.then(() => {
+                localStorage.removeItem("user");
+                history.push("/");
+            });
+            req.catch(() => alert("Ocorreu um erro ao tentar sair. Tente novamente."));
+        }
+    }
 
     return (
         <>
@@ -55,7 +66,7 @@ export default function Home() {
                 <Title>
                     Olá, {userData.name}
                 </Title>
-                <IoExitOutline size="32" color="#FFF"/>
+                <IoExitOutline size="32" color="#FFF" onClick={logout}/>
             </Header>
             {(loading || financesList.length !== 0) ?
                 <RegisterBox>

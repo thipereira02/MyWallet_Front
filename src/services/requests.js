@@ -22,4 +22,8 @@ function addNewFinance(body, token) {
     return axios.post(`${BASE_URL}/finances`, body, setConfig(token))
 }
 
-export {login, registration, getUserFinances, addNewFinance};
+function finishSession(token) {
+    return axios.delete(`${BASE_URL}/finances`, {}, setConfig(token))
+}
+
+export {login, registration, getUserFinances, addNewFinance, finishSession};
