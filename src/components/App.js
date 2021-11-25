@@ -7,6 +7,7 @@ import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import Home from "../pages/Home";
 import AddFinance from "../pages/AddFinance";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function App(){
     const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")));
@@ -24,10 +25,14 @@ export default function App(){
                             <SignUpPage />
                         </Route>
                         <Route path="/home" exact>
-                            <Home />
+                            <ProtectedRoute>
+                                <Home />
+                            </ProtectedRoute>
                         </Route>
                         <Route path="/finances" exact>
-                            <AddFinance />
+                            <ProtectedRoute>
+                                <AddFinance />
+                            </ProtectedRoute>
                         </Route>
                     </Switch>
                 </BrowserRouter>

@@ -16,7 +16,7 @@ export default function Home() {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-        const req = getUserFinances(userData.token);
+        const req = getUserFinances(userData?.token);
         req.then(res => {
             setFinancesList(res.data);
             setLoading(false);
