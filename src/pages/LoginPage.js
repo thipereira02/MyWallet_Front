@@ -15,10 +15,10 @@ export default function LoginPage(){
     const { setUserData } = useContext(UserContext);
     const user = localStorage.getItem("user");
 
-    useEffect(() => {
-        user ? history.push("/home") : setUserData(null)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
+	useEffect(() => {
+		user ? history.push("/home") : setUserData(null);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
     
     function signIn(e){
         e.preventDefault();

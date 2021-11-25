@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import MainStyle from "../layouts/MainStyle";
 import { Box, Input, Button, StyledLink, Error } from "../layouts/common/Components";
-
 import { registration } from "../services/requests";
+import UserContext from "../contexts/UserContext";
 
 export default function SignUpPage(){
     const history = useHistory();
@@ -14,6 +14,13 @@ export default function SignUpPage(){
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const { setUserData } = useContext(UserContext);
+    const user = localStorage.getItem("user");
+
+	useEffect(() => {
+		user ? history.push("/home") : setUserData(null);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[]);
 
     function signup(e){
         e.preventDefault();

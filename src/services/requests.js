@@ -23,7 +23,7 @@ function addNewFinance(body, token) {
 }
 
 function finishSession(token) {
-    return axios.delete(`${BASE_URL}/finances`, {}, setConfig(token))
+    return axios.post(`${BASE_URL}/logout`, [], setConfig(token))
 }
 
 export {login, registration, getUserFinances, addNewFinance, finishSession};
