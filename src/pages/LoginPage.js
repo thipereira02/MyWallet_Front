@@ -18,6 +18,7 @@ export default function LoginPage(){
 
 	useEffect(() => {
 		user ? history.push("/home") : setUserData(null);
+	// eslint-disable-next-line
 	},[]);
     
 	function signIn(e){

@@ -20,6 +20,7 @@ export default function SignUpPage(){
 
 	useEffect(() => {
 		user ? history.push("/home") : setUserData(null);
+	// eslint-disable-next-line
 	},[]);
 
 	function signup(e){

@@ -27,6 +27,7 @@ export default function Home() {
 			alert("Ocorreu um erro ao tentar carregar a lista. Tente novamente");
 			history.push("/");
 		});
+	// eslint-disable-next-line
 	},[]);
 
 	function goTo(path){
