@@ -92,17 +92,17 @@ export default function Home() {
 				</RegisterBox>
 				:
 				<NoRegisters>
-					<p>Não há registros de <br/>entrada ou saída</p>
+					<p>Não há registros de entrada ou saída</p>
 				</NoRegisters> 
 			}
 			<Buttons>
 				<Button onClick={() => goTo("income")}>
 					<BsPlusCircle size="20" color="#FFF"/>
-					<p>Nova<br/>entrada</p>
+					<p>Nova entrada</p>
 				</Button>
 				<Button onClick={() => goTo("expense")}>
 					<BsDashCircle size="20" color="#FFF"/>
-					<p>Nova<br/>saída</p>
+					<p>Nova saída</p>
 				</Button>
 			</Buttons>
 		</>

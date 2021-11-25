@@ -35,6 +35,8 @@ export const NoRegisters = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 50px;
+
     p{
         text-align: center;
         color: #868686;
@@ -108,8 +110,9 @@ export const Button = styled.button`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-top: 10px;
+    padding-top: 20px;
     padding-left: 10px;
+    padding-right: 80px;
     p{
         color: #FFF;
         font-size: 17px;
