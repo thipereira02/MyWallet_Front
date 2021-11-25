@@ -1,64 +1,62 @@
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 
 import MainStyle from "../layouts/MainStyle";
 import { Box, Input, Button, StyledLink, Error } from "../layouts/common/Components";
-import { login } from "../services/requests"
+import { login } from "../services/requests";
 import UserContext from "../contexts/UserContext";
 
 export default function LoginPage(){
-    const history = useHistory()
-    const [email, setEmail] = useState("");
+	const history = useHistory();
+	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const { setUserData } = useContext(UserContext);
-    const user = localStorage.getItem("user");
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
+	const { setUserData } = useContext(UserContext);
+	const user = localStorage.getItem("user");
 
 	useEffect(() => {
 		user ? history.push("/home") : setUserData(null);
-	// eslint-disable-next-line react-hooks/exhaustive-deps
 	},[]);
     
-    function signIn(e){
-        e.preventDefault();
-        setLoading(true);
+	function signIn(e){
+		e.preventDefault();
+		setLoading(true);
 
-        const body = {email, password};
+		const body = {email, password};
 
-        const req = login(body);
-        req.then(res => {
-            setUserData({
+		const req = login(body);
+		req.then(res => {
+			setUserData({
 				token: res.data.token,
-                name: res.data.name
+				name: res.data.name
 			});
-            localStorage.setItem("user", JSON.stringify(res.data))
-            history.push("/home");
-        });
-        req.catch(() => {
-            setError("Email e/ou senha inválidos");
-            setLoading(false);
-        });
-    }
+			localStorage.setItem("user", JSON.stringify(res.data));
+			history.push("/home");
+		});
+		req.catch(() => {
+			setError("Email e/ou senha inválidos");
+			setLoading(false);
+		});
+	}
 
-    return (
-        <MainStyle>
-            <Box>
+	return (
+		<MainStyle>
+			<Box>
 				<form onSubmit={signIn}>
 					<Input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
 					<Input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
 					{
 						error && 
-                        <Error>
-                            {error}
-                        </Error>
+                        <Error>{error}</Error>
 					}
-                    <Button type="submit" disabled={loading}>
+					<Button type="submit" disabled={loading}>
                         Entrar
 					</Button>
 				</form>
 				<StyledLink to="/signup">Primeira vez? Cadastre-se!</StyledLink>
 			</Box>
-        </MainStyle>
-    );
+		</MainStyle>
+	);
 }

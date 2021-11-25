@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext, useState } from "react";
 import { useHistory, useLocation } from "react-router";
 import styled from "styled-components";
@@ -7,34 +8,34 @@ import { Box, Input, Button, StyledLink, Error } from "../layouts/common/Compone
 import { addNewFinance } from "../services/requests";
 
 export default function AddFinance() {
-    const history = useHistory();
-    const location = useLocation();
-    const { userData } = useContext(UserContext);
-    const finance = location.state.text;
-    const [value, setValue] = useState();
+	const history = useHistory();
+	const location = useLocation();
+	const { userData } = useContext(UserContext);
+	const finance = location.state.text;
+	const [value, setValue] = useState();
 	const [description, setDescription] = useState("");
 	const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
+	const [error, setError] = useState("");
 
-    function newFinance(e) {
-        e.preventDefault();
-        setLoading(true);
+	function newFinance(e) {
+		e.preventDefault();
+		setLoading(true);
 
-        const body = {value, description, eventType: finance};
-        const token = userData.token;
+		const body = {value, description, eventType: finance};
+		const token = userData.token;
 
-        const req = addNewFinance(body, token);
-        req.then(() => history.push("/home"));
-        req.catch(() => {
-            setError("Não foi possível cadastrar. Tente novamente")
-            setLoading(false);
-        });
-    }
+		const req = addNewFinance(body, token);
+		req.then(() => history.push("/home"));
+		req.catch(() => {
+			setError("Não foi possível cadastrar. Tente novamente");
+			setLoading(false);
+		});
+	}
 
-    return (
-        <>
+	return (
+		<>
 			<Title>
-                {finance==="income" ? "Nova entrada" : "Nova saída"}
+				{finance==="income" ? "Nova entrada" : "Nova saída"}
 			</Title>
 			<Container>
 				<Box>
@@ -43,19 +44,17 @@ export default function AddFinance() {
 						<Input type="text" placeholder="Descrição" value={description} onChange={e => setDescription(e.target.value)} />
 						{
 							error && 
-                            <Error>
-                                { error }
-                            </Error>
+                            <Error>{ error }</Error>
 						}
-                        <Button type="submit" disabled={loading} backgroundColor="#A328D6">
-                            {finance==="income" ? "Salvar entrada" : "Salvar saída"}
+						<Button type="submit" disabled={loading} backgroundColor="#A328D6">
+							{finance==="income" ? "Salvar entrada" : "Salvar saída"}
 						</Button>
 						<StyledLink to="/home">Voltar</StyledLink>
 					</form>
 				</Box>
 			</Container>
 		</>
-    );
+	);
 }
 
 const Container = styled.div`

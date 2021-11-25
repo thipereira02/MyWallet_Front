@@ -11,36 +11,36 @@ import Error from "../pages/Error";
 import ProtectedRoute from "./ProtectedRoute";
 
 export default function App(){
-    const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")));
+	const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("user")));
 
 	return (
 		<>
 			<GlobalStyle />
-            <UserContext.Provider value={{userData, setUserData}} >
-                <BrowserRouter>
-                    <Switch>
-                        <Route path="/" exact>
-                            <LoginPage />
-                        </Route>
-                        <Route path="/signup" exact>
-                            <SignUpPage />
-                        </Route>
-                        <Route path="/home" exact>
-                            <ProtectedRoute>
-                                <Home />
-                            </ProtectedRoute>
-                        </Route>
-                        <Route path="/finances" exact>
-                            <ProtectedRoute>
-                                <AddFinance />
-                            </ProtectedRoute>
-                        </Route>
-                        <Route path="*">
-                            <Error />
-                        </Route>
-                    </Switch>
-                </BrowserRouter>
-            </UserContext.Provider>
+			<UserContext.Provider value={{userData, setUserData}} >
+				<BrowserRouter>
+					<Switch>
+						<Route path="/" exact>
+							<LoginPage />
+						</Route>
+						<Route path="/signup" exact>
+							<SignUpPage />
+						</Route>
+						<Route path="/home" exact>
+							<ProtectedRoute>
+								<Home />
+							</ProtectedRoute>
+						</Route>
+						<Route path="/finances" exact>
+							<ProtectedRoute>
+								<AddFinance />
+							</ProtectedRoute>
+						</Route>
+						<Route path="*">
+							<Error />
+						</Route>
+					</Switch>
+				</BrowserRouter>
+			</UserContext.Provider>
 		</>
 	);
 }
