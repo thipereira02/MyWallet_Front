@@ -7,6 +7,7 @@ import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import Home from "../pages/Home";
 import AddFinance from "../pages/AddFinance";
+import Error from "../pages/Error";
 import ProtectedRoute from "./ProtectedRoute";
 
 export default function App(){
@@ -33,6 +34,9 @@ export default function App(){
                             <ProtectedRoute>
                                 <AddFinance />
                             </ProtectedRoute>
+                        </Route>
+                        <Route path="*">
+                            <Error />
                         </Route>
                     </Switch>
                 </BrowserRouter>
