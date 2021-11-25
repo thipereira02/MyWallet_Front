@@ -43,10 +43,42 @@ export default function SignUpPage(){
 		<MainStyle>
 			<Box>
 				<form onSubmit={signup}>
-					<Input type="text" placeholder="Nome" value={name} onChange={e => setName(e.target.value)} />
-					<Input type="email" placeholder="E-mail" value={email} onChange={e => setEmail(e.target.value)} />
-					<Input type="password" placeholder="Senha" value={password} onChange={e => setPassword(e.target.value)} />
-					<Input type="password" placeholder="Confirme a senha" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+					<Input 
+						type="text" 
+						placeholder="Nome" 
+						value={name} 
+						onChange={e => setName(e.target.value)}
+						onInvalid={e => e.target.setCustomValidity("Você deve inserir um nome aqui")} 
+						onInput={e => e.target.setCustomValidity("")}
+						required
+					/>
+					<Input 
+						type="email" 
+						placeholder="E-mail" 
+						value={email} 
+						onChange={e => setEmail(e.target.value)}
+						onInvalid={e => e.target.setCustomValidity("Você deve inserir um email válido aqui")} 
+						onInput={e => e.target.setCustomValidity("")}
+						required 
+					/>
+					<Input 
+						type="password" 
+						placeholder="Senha" 
+						value={password} 
+						onChange={e => setPassword(e.target.value)}
+						onInvalid={e => e.target.setCustomValidity("Insira uma senha com no mínimo 6 caracteres")} 
+						onInput={e => e.target.setCustomValidity("")}
+						required 
+					/>
+					<Input 
+						type="password" 
+						placeholder="Confirme a senha" 
+						value={confirmPassword} 
+						onChange={e => setConfirmPassword(e.target.value)}
+						onInvalid={e => e.target.setCustomValidity("As senhas devem ser iguais")} 
+						onInput={e => e.target.setCustomValidity("")}
+						required
+					/>
 					{
 						error && 
                         <Error>{error}</Error>
